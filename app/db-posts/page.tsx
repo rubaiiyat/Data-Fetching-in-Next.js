@@ -27,6 +27,7 @@ const BlogPage = () => {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log(errors);
     try {
       const res = await fetch("api/posts", {
         method: "POST",
@@ -38,6 +39,21 @@ const BlogPage = () => {
       const newPost = await res.json();
       setPosts((prev) => [newPost.post, ...prev]);
       reset();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      const deletePost = await fetch(`api/posts/${id}`, {
+        method: "DELETE",
+      });
+      if (!deletePost) {
+        return alert("Something went wrong");
+      }
+
+      alert("Blog has been deleted");
     } catch (error) {
       console.log(error);
     }
@@ -95,7 +111,12 @@ const BlogPage = () => {
               <button className="text-blue-600 hover:underline text-sm font-medium">
                 Read more →
               </button>
-              <button className="btn btn-error">Delete</button>
+              <button
+                onClick={() => handleDelete(post._id)}
+                className="btn btn-error"
+              >
+                Delete
+              </button>
             </div>
           </div>
         ))}

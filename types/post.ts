@@ -8,7 +8,7 @@ export interface Post {
 }
 
 export interface BlogDb {
-  _id: number;
+  _id: string;
   title: string;
   author: string;
   body: string;
