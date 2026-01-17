@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Blog } from "@/Models/Post"; */
 import { BlogDb, Inputs } from "@/types/post";
 import { SubmitHandler, useForm } from "react-hook-form";
+import Link from "next/link";
 
 const BlogPage = () => {
   /*  await connectdb();
@@ -99,25 +100,27 @@ const BlogPage = () => {
             key={post._id.toString()}
             className="bg-base-200 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 p-6"
           >
-            <h2 className="text-xl font-semibold mb-2 ">{post.title}</h2>
+            <Link href={`db-posts/${post._id}`}>
+              <h2 className="text-xl font-semibold mb-2 ">{post.title}</h2>
 
-            <p className="text-sm text-gray-200 mb-4">✍️ {post.author}</p>
+              <p className="text-sm text-gray-200 mb-4">✍️ {post.author}</p>
 
-            <p className="text-gray-300 line-clamp-4">
-              {post.body || post.blog}
-            </p>
+              <p className="text-gray-300 line-clamp-4">
+                {post.body || post.blog}
+              </p>
 
-            <div className="flex justify-between mt-4">
-              <button className="text-blue-600 hover:underline text-sm font-medium">
-                Read more →
-              </button>
-              <button
-                onClick={() => handleDelete(post._id)}
-                className="btn btn-error"
-              >
-                Delete
-              </button>
-            </div>
+              <div className="flex justify-between mt-4">
+                <button className="text-blue-600 hover:underline text-sm font-medium">
+                  Read more →
+                </button>
+                <button
+                  onClick={() => handleDelete(post._id)}
+                  className="btn btn-error"
+                >
+                  Delete
+                </button>
+              </div>
+            </Link>
           </div>
         ))}
       </div>
