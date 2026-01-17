@@ -12,4 +12,11 @@ export interface BlogDb {
   title: string;
   author: string;
   body: string;
+  blog: string;
 }
+
+export type Inputs = {
+  title: string;
+  author: string;
+  blog: string;
+};

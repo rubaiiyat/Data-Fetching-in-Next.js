@@ -7,3 +7,13 @@ export async function GET() {
   const posts = await Blog.find().lean();
   return NextResponse.json(posts);
 }
+
+export async function POST(request: Request) {
+  await connectdb();
+  const body = await request.json();
+  const newPost = await Blog.create(body);
+  return NextResponse.json({
+    message: "New blog has been created successfully",
+    post: newPost,
+  });
+}
