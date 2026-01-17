@@ -1,12 +1,24 @@
-import React from "react";
-import { connectdb } from "../lib/mongodb";
-import { Blog } from "@/Models/Post";
+"use client";
+import React, { useEffect, useState } from "react";
+/* import { connectdb } from "../lib/mongodb";
+import { Blog } from "@/Models/Post"; */
+import { BlogDb } from "@/types/post";
 
-const page = async () => {
-  await connectdb();
+const BlogPage = () => {
+  /*  await connectdb();
+  const posts = await Blog.find().lean(); */
 
-  const posts = await Blog.find().lean();
-  console.log(posts);
+  const [posts, setPosts] = useState<BlogDb[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("api/posts");
+      const datas = await res.json();
+      setPosts(datas);
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold mb-8 text-center">All DB Posts</h1>
@@ -35,4 +47,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default BlogPage;

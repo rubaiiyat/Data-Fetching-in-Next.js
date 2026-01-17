@@ -6,3 +6,10 @@ export interface Post {
   category: string;
   image: string;
 }
+
+export interface BlogDb {
+  _id: number;
+  title: string;
+  author: string;
+  body: string;
+}
